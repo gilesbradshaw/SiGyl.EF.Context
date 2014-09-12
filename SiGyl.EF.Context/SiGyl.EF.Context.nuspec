@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Giles Bradshaw</authors>
+    <owners>Giles Bradshaw</owners>
+    <projectUrl>https://github.com/gilesbradshaw/SiGyl.EF.Context</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial</releaseNotes>
+    <copyright>Copyright 2014</copyright>
+    <tags>Context EF</tags>
+  </metadata>
+</package>
