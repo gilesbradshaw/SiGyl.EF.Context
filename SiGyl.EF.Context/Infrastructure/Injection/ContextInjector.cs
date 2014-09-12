@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SiGyl.EF.Context.Infrastructure.Injection
+namespace  SiGyl.EF.Context.Infrastructure.Injection
 {
     public interface IContextInjector<TContext>
-        where TContext: IContext
+        where TContext: IInjectableContext
     {
         void Inject<T>(IInitializationExpression x);
 
@@ -15,7 +15,7 @@ namespace SiGyl.EF.Context.Infrastructure.Injection
 
 
     public static class ContextInjector<TContext>
-        where TContext : IContext
+        where TContext : IInjectableContext
     {
         public static void Inject< TInjector>(TInjector injector, IInitializationExpression x)
         {

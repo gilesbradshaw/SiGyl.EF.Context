@@ -19,7 +19,7 @@ namespace SiGyl.Models.Infrastructure.ChangeDetection
         public IEnumerable<ObjectStateEntry> Added { get; set; }
         public IEnumerable<object> Deleted { get; set; }
         public IEnumerable<ModifiedObjectState> Modified { get; set; }
-        public SiGyl.EF.Context.IContextAsync Context { get; set; }
+        public  SiGyl.EF.Context.IInjectableContextAsync Context { get; set; }
         public Changes Parent { get; set; }
         Dictionary<Transaction, Changes> _children = new Dictionary<Transaction, Changes>();
         public Dictionary<Transaction, Changes> Children { get { return _children; } }

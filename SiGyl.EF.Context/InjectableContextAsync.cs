@@ -1,5 +1,5 @@
-﻿using SiGyl.EF.Context.Infrastructure;
-using SiGyl.EF.Context.Processors;
+﻿using  SiGyl.EF.Context.Infrastructure;
+using  SiGyl.EF.Context.Processors;
 using SiGyl.Models.Infrastructure.ChangeDetection;
 using StructureMap;
 using System;
@@ -12,11 +12,11 @@ using System.Linq;
 using System.Reflection;
 using System.Transactions;
 
-namespace SiGyl.EF.Context
+namespace  SiGyl.EF.Context
 {
-	public abstract class ContextAsync : Context
+	public abstract class InjectableContextAsync : InjectableContext
 	{
-		public ContextAsync(string nameOrConnectionString) : base(nameOrConnectionString) { }
+		public InjectableContextAsync(string nameOrConnectionString) : base(nameOrConnectionString) { }
 
 
 
@@ -33,35 +33,35 @@ namespace SiGyl.EF.Context
 		public IEnumerable<IProcessorAsync> PostProcessorAsyncs { get { return _postProcessorAsyncs.ContainsKey(this.GetType()) ? _postProcessorAsyncs[this.GetType()] : null; } }
 		public IEnumerable<IProcessorAsync> PostPostProcessorAsyncs { get { return _postPostProcessorAsyncs.ContainsKey(this.GetType()) ? _postPostProcessorAsyncs[this.GetType()] : null; } }
 
-		public IContextAsync PreProcessAsync(IPreProcessorAsync preProcessAsync)
+		public IInjectableContextAsync PreProcessAsync(IPreProcessorAsync preProcessAsync)
 		{
 			if (!_preProcessorAsyncs.ContainsKey(this.GetType()))
 				_preProcessorAsyncs.Add(this.GetType(), new List<IPreProcessorAsync>());
 			_preProcessorAsyncs[this.GetType()].Add(preProcessAsync);
-			return this as IContextAsync;
+			return this as IInjectableContextAsync;
 		}
-		public IContextAsync ProcessAsync(IContextProcessorAsync processAsync)
+		public IInjectableContextAsync ProcessAsync(IContextProcessorAsync processAsync)
 		{
 			if (!_processorAsyncs.ContainsKey(this.GetType()))
 				_processorAsyncs.Add(this.GetType(), new List<IContextProcessorAsync>());
 			_processorAsyncs[this.GetType()].Add(processAsync);
-			return this as IContextAsync;
+			return this as IInjectableContextAsync;
 		}
 
-		public IContextAsync PostProcessAsync(IProcessorAsync postProcessAsync)
+		public IInjectableContextAsync PostProcessAsync(IProcessorAsync postProcessAsync)
 		{
 			if (!_postProcessorAsyncs.ContainsKey(this.GetType()))
 				_postProcessorAsyncs.Add(this.GetType(), new List<IProcessorAsync>());
 			_postProcessorAsyncs[this.GetType()].Add(postProcessAsync);
-			return this as IContextAsync;
+			return this as IInjectableContextAsync;
 		}
 
-		public IContextAsync PostPostProcessAsync(IProcessorAsync postPostProcessAsync)
+		public IInjectableContextAsync PostPostProcessAsync(IProcessorAsync postPostProcessAsync)
 		{
 			if (!_postPostProcessorAsyncs.ContainsKey(this.GetType()))
 				_postPostProcessorAsyncs.Add(this.GetType(), new List<IProcessorAsync>());
 			_postPostProcessorAsyncs[this.GetType()].Add(postPostProcessAsync);
-			return this as IContextAsync;
+			return this as IInjectableContextAsync;
 		}
 
 

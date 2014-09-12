@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace SiGyl.EF.Context.Infrastructure
+namespace  SiGyl.EF.Context.Infrastructure
 {
 
 
@@ -47,7 +47,7 @@ namespace SiGyl.EF.Context.Infrastructure
 			}, currentTransaction);
 		};
 
-		public static async Task<T> ProcessAsync<T>(this T context, Func<T, Task> process) where T : class, SiGyl.EF.Context.IContextAsync
+		public static async Task<T> ProcessAsync<T>(this T context, Func<T, Task> process) where T : class,  SiGyl.EF.Context.IInjectableContextAsync
 		{
 			var currentTransaction = Transaction.Current;
 			//will store all the changes for the new transaction

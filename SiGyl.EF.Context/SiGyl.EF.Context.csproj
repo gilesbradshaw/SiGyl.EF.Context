@@ -54,10 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Context.cs" />
-    <Compile Include="ContextAsync.cs" />
-    <Compile Include="IContext.cs" />
-    <Compile Include="IContextAsync.cs" />
+    <Compile Include="InjectableContext.cs" />
+    <Compile Include="InjectableContextAsync.cs" />
+    <Compile Include="IInjectableContext.cs" />
+    <Compile Include="IInjectableContextAsync.cs" />
     <Compile Include="Infrastructure\ChangeDetection\Changes.cs" />
     <Compile Include="Infrastructure\ContextSubscriptionsAsync.cs" />
     <Compile Include="Infrastructure\FluentContext.cs" />

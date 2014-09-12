@@ -2,12 +2,12 @@
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace SiGyl.EF.Context.Infrastructure
+namespace  SiGyl.EF.Context.Infrastructure
 {
 
 
     public abstract class ContextSubscriptionAsync<TContext> : IContextSubscriptionAsync
-       where TContext : IContext
+       where TContext : IInjectableContext
     {
 		internal protected static ConcurrentDictionary<Type, ConcurrentDictionary<Type, ConcurrentDictionary<object, ConcurrentDictionary<Type, IContextSubscriptionAsync>>>> SubscriptionDictionary = new ConcurrentDictionary<Type, ConcurrentDictionary<Type, ConcurrentDictionary<object, ConcurrentDictionary<Type, IContextSubscriptionAsync>>>>();
 
@@ -23,7 +23,7 @@ namespace SiGyl.EF.Context.Infrastructure
 
 
 	public abstract class ContextSubscriptionAsync<TContextAsync, TConfiguration, TRuntime> : IContextSubscriptionAsync<TContextAsync, TConfiguration, TRuntime>
-		where TContextAsync : IContextAsync
+		where TContextAsync : IInjectableContextAsync
     {
 
 		public IContextSubscriptionAsync<TContextAsync, TConfiguration, TRuntime> Initialise(TConfiguration configuration, TRuntime item)
@@ -106,14 +106,14 @@ namespace SiGyl.EF.Context.Infrastructure
     }
 
 	public interface IContextSubscriptionAsync<TContextAsync, TConfiguration, TRuntime> : IConfigurationSubscriptionAsync<TContextAsync, TConfiguration>, IRuntimeSubscriptionAsync<TContextAsync, TRuntime>
-		where TContextAsync : IContext
+		where TContextAsync : IInjectableContext
     {
 		IContextSubscriptionAsync<TContextAsync, TConfiguration, TRuntime> Initialise(TConfiguration configuration, TRuntime item);
     }
 
 
 	public interface IRuntimeSubscriptionAsync<TContext, T> : IContextSubscriptionAsync
-        where TContext : IContext
+        where TContext : IInjectableContext
     {
 		Task ModifyAsync(T item);
 		Task CreateAsync(T item);
@@ -123,7 +123,7 @@ namespace SiGyl.EF.Context.Infrastructure
     }
 
 	public interface IConfigurationSubscriptionAsync<TContext, T> : IContextSubscriptionAsync
-       where TContext : IContext
+       where TContext : IInjectableContext
     {
 
 		Task CreateAsync(T item);

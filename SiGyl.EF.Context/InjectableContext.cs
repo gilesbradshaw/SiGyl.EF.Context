@@ -1,5 +1,5 @@
-﻿using SiGyl.EF.Context.Infrastructure;
-using SiGyl.EF.Context.Processors;
+﻿using  SiGyl.EF.Context.Infrastructure;
+using  SiGyl.EF.Context.Processors;
 using SiGyl.Models.Infrastructure.ChangeDetection;
 using StructureMap;
 using System;
@@ -12,11 +12,11 @@ using System.Linq;
 using System.Reflection;
 using System.Transactions;
 
-namespace SiGyl.EF.Context
+namespace  SiGyl.EF.Context
 {
-    public abstract class Context : DbContext
+    public abstract class InjectableContext : DbContext
     {
-        public Context(string nameOrConnectionString) : base(nameOrConnectionString) {
+        public InjectableContext(string nameOrConnectionString) : base(nameOrConnectionString) {
 			//var objectContext = (this as IObjectContextAdapter).ObjectContext;
 
 			// Sets the command timeout for all the commands
@@ -102,8 +102,8 @@ namespace SiGyl.EF.Context
             }
         
 
-            newChanges.Context = this as IContextAsync;
-            changes.Context = this as IContextAsync;
+            newChanges.Context = this as IInjectableContextAsync;
+            changes.Context = this as IInjectableContextAsync;
             return newChanges;
         
         }

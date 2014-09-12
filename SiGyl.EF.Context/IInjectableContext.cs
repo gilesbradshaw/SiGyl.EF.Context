@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using SiGyl.EF.Context.Processors;
+using  SiGyl.EF.Context.Processors;
 using SiGyl.Models.Infrastructure.ChangeDetection;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Data.Entity.Infrastructure;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace SiGyl.EF.Context
+namespace  SiGyl.EF.Context
 {
-    public interface IContext : IObjectContextAdapter, IDisposable
+    public interface IInjectableContext : IObjectContextAdapter, IDisposable
     {
 
         void Init();
@@ -21,7 +21,7 @@ namespace SiGyl.EF.Context
         object GetOriginal(object i);
         Changes DetectChanges(Changes changes);
   
-		Func<Assembly, EntityType, JProperty[]> JsonModelExtender(Dictionary<string, IContext> contexts);
+		Func<Assembly, EntityType, JProperty[]> JsonModelExtender(Dictionary<string, IInjectableContext> contexts);
         
 
     }

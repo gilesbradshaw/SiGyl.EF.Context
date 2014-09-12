@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using SiGyl.EF.Context.Processors;
+using  SiGyl.EF.Context.Processors;
 using SiGyl.Models.Infrastructure.ChangeDetection;
 using System;
 using System.Collections.Generic;
@@ -8,9 +8,9 @@ using System.Data.Entity.Infrastructure;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace SiGyl.EF.Context
+namespace  SiGyl.EF.Context
 {
-    public interface IContextAsync : IContext
+    public interface IInjectableContextAsync : IInjectableContext
     {
 		Func<Task> Presave { get; set; }
 		Task<int> SaveChangesAsync();
@@ -18,10 +18,10 @@ namespace SiGyl.EF.Context
 		IEnumerable<IContextProcessorAsync> ProcessorAsyncs { get; }
 		IEnumerable<IProcessorAsync> PostProcessorAsyncs { get; }
 		IEnumerable<IProcessorAsync> PostPostProcessorAsyncs { get; }
-		IContextAsync PreProcessAsync(IPreProcessorAsync processAsync);
-		IContextAsync ProcessAsync(IContextProcessorAsync processAsync);
-		IContextAsync PostProcessAsync(IProcessorAsync processAsync);
-		IContextAsync PostPostProcessAsync(IProcessorAsync processAsync);
+		IInjectableContextAsync PreProcessAsync(IPreProcessorAsync processAsync);
+		IInjectableContextAsync ProcessAsync(IContextProcessorAsync processAsync);
+		IInjectableContextAsync PostProcessAsync(IProcessorAsync processAsync);
+		IInjectableContextAsync PostPostProcessAsync(IProcessorAsync processAsync);
 
 
 

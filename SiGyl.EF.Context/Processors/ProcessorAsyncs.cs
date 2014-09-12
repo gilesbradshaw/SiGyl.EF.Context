@@ -1,4 +1,4 @@
-﻿using SiGyl.EF.Context.Infrastructure;
+﻿using  SiGyl.EF.Context.Infrastructure;
 using SiGyl.Models.Infrastructure.ChangeDetection;
 using StructureMap;
 using System;
@@ -12,7 +12,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace SiGyl.EF.Context.Processors
+namespace  SiGyl.EF.Context.Processors
 {
     public interface IProcessorAsync
     {
@@ -25,7 +25,7 @@ namespace SiGyl.EF.Context.Processors
         Task doProcessChanges(Changes changes, object context);
     }
 	public interface IPreProcessorAsync<TContext> : IPreProcessorAsync
-        where TContext : IContextAsync
+        where TContext : IInjectableContextAsync
     {
 
         Task ProcessChanges(Changes changes, TContext context);
@@ -35,7 +35,7 @@ namespace SiGyl.EF.Context.Processors
 
 
 	public class ProcessorAsync<ContextType> : ProcessorBaseAsync, IProcessorAsync
-        where ContextType : IContextAsync
+        where ContextType : IInjectableContextAsync
     {
       
 
@@ -80,9 +80,9 @@ namespace SiGyl.EF.Context.Processors
     }
 
 	public abstract class ContextProcessorBaseAsync<ContextType> : ProcessorBaseAsync
-        where ContextType : IContextAsync
+        where ContextType : IInjectableContextAsync
     {
-        protected Func<Type, Type, IEnumerable<object>, string, IContextAsync,Task< bool>> tick = async (changeType, itemType, items, methodName, ctx) =>
+        protected Func<Type, Type, IEnumerable<object>, string, IInjectableContextAsync,Task< bool>> tick = async (changeType, itemType, items, methodName, ctx) =>
         {
             var m = changeType.MakeGenericType(typeof(ContextType), itemType);
             var processors = ObjectFactory.GetAllInstances(m);
@@ -98,7 +98,7 @@ namespace SiGyl.EF.Context.Processors
 
 
 	public class PreProcessorAsync<ContextType> : ContextProcessorBaseAsync<ContextType>, IPreProcessorAsync
-        where ContextType : IContextAsync
+        where ContextType : IInjectableContextAsync
     {
         public Type CreateChangeType { get; set; }
         public Type ModifyChangeType { get; set; }
@@ -155,7 +155,7 @@ namespace SiGyl.EF.Context.Processors
 
 
 	public class ContextProcessorAsync<ContextType> : ContextProcessorBaseAsync<ContextType>, IContextProcessorAsync
-        where ContextType : class, IContextAsync
+        where ContextType : class, IInjectableContextAsync
     {
         public async Task ProcessChangesAsync(Changes changes)
         {
@@ -193,7 +193,7 @@ namespace SiGyl.EF.Context.Processors
 
 
 	public class PreContextProcessorAsync<ContextType> : PreProcessorAsync<ContextType>, IPreProcessorAsync<ContextType>
-        where ContextType : IContextAsync
+        where ContextType : IInjectableContextAsync
     {
 
     }
